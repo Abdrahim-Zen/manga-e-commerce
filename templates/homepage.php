@@ -2,7 +2,50 @@
 /** @var string $site_name */
 $this->layout('layout', ['title' => $site_name])
     ?>
+<?php $this->start('extra_styles') ?>
+<style>
+    .pcard {
+        overflow: hidden;
+    }
 
+    .pcard-img {
+        width: 100%;
+        aspect-ratio: 3/4;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.4s ease;
+        filter: brightness(0.92);
+    }
+
+    .pcard:hover .pcard-img {
+        transform: scale(1.04);
+        filter: brightness(1);
+    }
+
+    .scroll-row {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        gap: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .scroll-row::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .scroll-row::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 10px;
+    }
+
+    .scroll-item {
+        flex: 0 0 auto;
+        width: 280px;
+    }
+</style>
+<?php $this->stop() ?>
 <?php $this->start('main_content') ?>
 
 
@@ -26,8 +69,11 @@ $renderFunction = function ($eyebrow, $title, $products, $cat) {
     ?>
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
-            <h2 class="fw-bolder mb-4"><?= $title ?></h2>
-            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="fw-bolder mb-0"><?= $title ?></h2>
+            </div>
+
+            <div class="scroll-row">
                 <?php foreach ($products as $product): ?>
                     <?php
                     $name = (!empty($product['nome']) ? $product['nome'] . (!empty($product['volume']) ? ' Vol.' . $product['volume'] :
@@ -37,26 +83,22 @@ $renderFunction = function ($eyebrow, $title, $products, $cat) {
                     $pcat = !empty($product['nome']) ? 'manga' : (!empty($product['nome_personaggio']) ? 'figure' : 'carta');
                     $image = $product['image'];
                     ?>
-                    <div class="col mb-5">
-                        <div class="card h-100">
+                    <div class="scroll-item">
+                        <div class="card pcard h-100">
                             <!-- Product image-->
-                            <img class="card-img-top"
+                            <img class="pcard-img"
                                 src="<?= !empty($image) ? $image : 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg' ?>"
                                 alt="..." />
                             <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder"><?= $name ?></h5>
-                                    <!-- Product price-->
-                                    €<?= number_format($price, 2) ?>
-                                </div>
+                            <div class="card-body p-4 text-center">
+                                <h5 class="fw-bolder text-truncate"><?= $name ?></h5>
+                                <div>€<?= number_format($price, 2) ?></div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto"
-                                        href="index.php?id=<?= $product['ID'] ?>&category=<?= $pcat ?>&action=prodotto">View
-                                        options</a>
+                                <div class="text-center">
+                                    <a class="btn btn-outline-dark btn-sm mt-auto"
+                                        href="index.php?id=<?= $product['ID'] ?>&category=<?= $pcat ?>&action=prodotto">Dettagli</a>
                                 </div>
                             </div>
                         </div>

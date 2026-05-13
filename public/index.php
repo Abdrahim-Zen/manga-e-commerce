@@ -32,6 +32,11 @@ switch ($action) {
         $controller = new LoginController();
         $controller->handleLogin();
         break;
+    case 'handleRegister':
+        require '../controllers/LoginController.php';
+        $controller = new LoginController();
+        $controller->handleRegister();
+        break;
     case 'showRegister':
         require '../controllers/LoginController.php';
         $controller = new LoginController();
