@@ -66,7 +66,24 @@ switch ($action) {
             $dashboardController->display();
         }
         break;
-
+    case 'cart':
+        if (!isset($_SESSION['user_id']) && !$db->canUserAccess($_SESSION['user_id'], 'cart')) {
+            header('Location: index.php?action=home');
+            exit();
+        }
+        require_once __DIR__ . '/../controllers/carrelloController.php';
+        $controller = new CarelloController();
+        $cartAction = $_GET['cart_action'];
+        if ($cartAction === 'addToCart') {
+            $controller->addToCart();
+        } elseif ($cartAction === 'showCart') {
+            $controller->showCart();
+        } elseif ($cartAction === 'removeFromCart') {
+            $controller->removeFromCart();
+        } elseif ($cartAction === 'updateQuantity') {
+            $controller->updateQuantity();
+        }
+        break;
     default:
         require '../controllers/HomepageController.php';
         $controller = new HomepageController();

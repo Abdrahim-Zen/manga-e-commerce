@@ -11,7 +11,6 @@ if (isset($_SESSION['user_id'])) {
     $is_admin = false;
     $brand_url = $this->e($base_url) . '?action=home';
 }
-
 ?>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -47,10 +46,15 @@ if (isset($_SESSION['user_id'])) {
             <div class="d-flex">
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <?php if (!$is_admin): ?>
-                        <button class="btn btn-outline-dark me-2" type="submit">
+                        <?php $cart = new CartDB(); ?>
+                        <?php $cartCount = $cart->getCartCount($_SESSION['user_id']); ?>
+                        <a class="btn btn-outline-dark me-2" href="index.php?action=cart&cart_action=showCart">
                             <i class="bi-cart-fill me-1"></i>
-                            Cart
-                        </button>
+                            Carrello <?php if ($cartCount > 0) { ?><span id="cartCount">
+                                    <?= $cartCount ?>
+                                </span><?php } ?>
+                        </a>
+
                         <a class="btn btn-outline-dark" href="index.php?action=handleLogout">
                             <i class="bi-box-arrow-right me-1"></i> Logout
                         </a>

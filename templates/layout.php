@@ -15,10 +15,10 @@
     <?= $this->section("extra_styles") ?>
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <?php $this->insert('partials/header', ['base_url' => $base_url, 'site_name' => $title]) ?>
 
-    <main>
+    <main class="flex-grow-1">
         <?= $this->section('main_content') ?>
     </main>
     <?php $this->insert('partials/footer', ['base_url' => $base_url, 'site_name' => $title]) ?>

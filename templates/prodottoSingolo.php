@@ -88,7 +88,8 @@ $this->layout('layout', ['title' => $site_name])
 
 } ?>
 <section class="py-5">
-    <div class="container px-3 px-lg-4 my-5">
+    <div class="container px-3 px-lg-4 my-5" id="productContainer" data-id="<?= $prodotto['ID'] ?>"
+        data-categoria="<?= $categoria ?>">
         <div class="row g-5">
             <div class="col-lg-5 product-img-col">
                 <div class="product-img-wrap">
@@ -117,7 +118,7 @@ $this->layout('layout', ['title' => $site_name])
                     <div class="d-flex">
                         <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1"
                             style="max-width: 3rem" />
-                        <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                        <button class="btn btn-outline-dark flex-shrink-0" type="button" id="addToCart">
                             <i class="bi-cart-fill me-1"></i>
                             Add to cart
                         </button>
@@ -186,6 +187,31 @@ $this->layout('layout', ['title' => $site_name])
 
 </section>
 
+<script>
+    const bottone = document.getElementById('addToCart');
+    const prodottoId = document.getElementById('productContainer').dataset.id;
+    const categoria = document.getElementById('productContainer').dataset.categoria;
+    const datiDaInviare = new URLSearchParams();
+    datiDaInviare.append('product_id', prodottoId);
+    datiDaInviare.append('categoria', categoria);
+
+    bottone.addEventListener('click', function () {
+        fetch('index.php?action=cart&cart_action=addToCart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: datiDaInviare
+        }).then(response => {
+            if (response.ok) {
+                window.location.href = response.url;
+            }
+            else {
+                window.location.href = response.url;
+            }
+        });
+    });
+</script>
 
 
 
