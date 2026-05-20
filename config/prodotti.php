@@ -354,6 +354,12 @@ LIMIT
             $stmt_inventario->execute();
             $stmt_inventario->close();
 
+            $sql_prodotto_categoria = "INSERT INTO prodotti_has_categorie (prodotto_id, categoria_id) VALUES (?,1) ";
+            $stmt_prodotto_categoria = $this->conn->prepare($sql_prodotto_categoria);
+            $stmt_prodotto_categoria->bind_param("i", $prodotto_id);
+            $stmt_prodotto_categoria->execute();
+            $stmt_prodotto_categoria->close();
+
 
 
             $sql_img = "INSERT INTO immagine_prodotti (prodotto_id, image) VALUES (?, ?)";
@@ -415,6 +421,13 @@ LIMIT
             $stmt_inventario->bind_param("ii", $prodotto_id, $quantita);
             $stmt_inventario->execute();
             $stmt_inventario->close();
+
+            $sql_prodotto_categoria = "INSERT INTO prodotti_has_categorie (prodotto_id, categoria_id) VALUES (?,3) ";
+            $stmt_prodotto_categoria = $this->conn->prepare($sql_prodotto_categoria);
+            $stmt_prodotto_categoria->bind_param("i", $prodotto_id);
+            $stmt_prodotto_categoria->execute();
+            $stmt_prodotto_categoria->close();
+
 
 
 
@@ -480,6 +493,12 @@ LIMIT
             $stmt_inventario->bind_param("ii", $prodotto_id, $quantita);
             $stmt_inventario->execute();
             $stmt_inventario->close();
+
+            $sql_prodotto_categoria = "INSERT INTO prodotti_has_categorie (prodotto_id, categoria_id) VALUES (?,2) ";
+            $stmt_prodotto_categoria = $this->conn->prepare($sql_prodotto_categoria);
+            $stmt_prodotto_categoria->bind_param("i", $prodotto_id);
+            $stmt_prodotto_categoria->execute();
+            $stmt_prodotto_categoria->close();
 
 
 

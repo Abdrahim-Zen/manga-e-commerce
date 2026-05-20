@@ -1,16 +1,12 @@
 <?php
 session_start();
 require '../vendor/autoload.php';
-require '../config/user.php';
 
 $action = $_GET['action'] ?? 'home';
-$db = new UserDB();
+
+
 switch ($action) {
     case 'home':
-        if (isset($_SESSION['user_id']) && $db->canUserAccess($_SESSION['user_id'], 'dashboard')) {
-            header('Location: index.php?action=dashboard');
-            exit();
-        }
         require '../controllers/HomepageController.php';
         $controller = new HomepageController();
         $controller->display();
@@ -32,22 +28,22 @@ switch ($action) {
         $controller = new LoginController();
         $controller->handleLogin();
         break;
-    case 'handleRegister':
-        require '../controllers/LoginController.php';
-        $controller = new LoginController();
-        $controller->handleRegister();
-        break;
-    case 'showRegister':
-        require '../controllers/LoginController.php';
-        $controller = new LoginController();
-        $controller->showRegister();
-        break;
     case 'handleLogout':
         require '../controllers/LoginController.php';
         $controller = new LoginController();
         $controller->handleLogout();
         break;
+    case 'productsbyCategory':
+        require '../controllers/prodottiByCategoryController.php';
+        require '../config/user.php';
+        $db = new UserDB();
+        $category = $_GET['category'];
+        $controller = new ProdottiByCategoryController();
+        $controller->display($category);
+        break;
     case 'dashboard':
+        require '../config/user.php';
+        $db = new UserDB();
 
         if (!isset($_SESSION['user_id']) || !$db->canUserAccess($_SESSION['user_id'], 'dashboard')) {
             header('Location: index.php?action=home');
@@ -67,6 +63,8 @@ switch ($action) {
         }
         break;
     case 'cart':
+        require '../config/user.php';
+        $db = new UserDB();
         if (!isset($_SESSION['user_id']) && !$db->canUserAccess($_SESSION['user_id'], 'cart')) {
             header('Location: index.php?action=home');
             exit();

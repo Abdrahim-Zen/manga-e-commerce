@@ -1,7 +1,8 @@
 <?php
 require_once __DIR__ . '/../../config/user.php';
 require_once __DIR__ . '/../../config/cart.php';
-
+  /** @var string $base_url */
+  /** @var string $site_name */ 
 if (isset($_SESSION['user_id'])) {
     $auth = new UserDB();
     //$is_admin = (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin');
@@ -14,8 +15,7 @@ if (isset($_SESSION['user_id'])) {
 ?>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <?php /** @var string $base_url */
-    /** @var string $site_name */ ?>
+   
     <div class="container px-4 px-lg-5">
         <a class="navbar-brand" href="<?= $base_url ?>">
             <?= $site_name ?>
@@ -30,15 +30,15 @@ if (isset($_SESSION['user_id'])) {
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#!">Manga</a></li>
+                            <li><a class="dropdown-item" href="index.php?action=productsbyCategory&category=manga">Manga</a></li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
-                            <li><a class="dropdown-item" href="#!">Figure</a></li>
+                            <li><a class="dropdown-item" href="index.php?action=productsbyCategory&category=figure">Figure</a></li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
-                            <li><a class="dropdown-item" href="#!">Carte</a></li>
+                            <li><a class="dropdown-item" href="index.php?action=productsbyCategory&category=carta">Carte</a></li>
                         </ul>
                     </li>
                 <?php endif; ?>
