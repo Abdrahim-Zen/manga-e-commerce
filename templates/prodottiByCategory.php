@@ -6,6 +6,7 @@ $this->layout('layout', ['title' => $site_name])?>
 <style>
     .pcard {
         overflow: hidden;
+        
     }
 
     .pcard-img {
@@ -26,10 +27,11 @@ $this->layout('layout', ['title' => $site_name])?>
 
 <?php 
 $this->start('main_content')?>
-<section class="py-5 bg-light">
+<section class="py-4 bg-light">
     <div class="container">
+         <h3 class="mb-3" >Catalogo <?=$category?></h3>
         <?php if (!empty($prodotti)): ?>
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-5 g-4">
                 <?php foreach ($prodotti as $product): ?>
                     <?php
                     $nome = $product['nome'] ?? $product['nome_personaggio'] ?? $product['brand_carta'] ?? 'Prodotto';

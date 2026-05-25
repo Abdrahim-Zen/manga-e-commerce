@@ -81,6 +81,9 @@ switch ($action) {
         } elseif ($cartAction === 'updateQuantity') {
             $controller->updateQuantity();
         }
+        elseif($cartAction === 'checkout'){
+            $controller->ordina();
+        }
         break;
     default:
         require '../controllers/HomepageController.php';

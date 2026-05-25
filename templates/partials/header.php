@@ -13,8 +13,14 @@ if (isset($_SESSION['user_id'])) {
     $brand_url = $this->e($base_url) . '?action=home';
 }
 ?>
+<style>
+    .custom-nav{
+    background: #EDE9E6;
+}
+</style>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+<nav class="navbar navbar-expand-lg navbar-light custom-nav">
    
     <div class="container px-4 px-lg-5">
         <a class="navbar-brand" href="<?= $base_url ?>">

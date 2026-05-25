@@ -49,14 +49,14 @@ class ProdottoSingoloController
                 'title' => $prodotto['nome'] . ' - Manga Xeno',
                 'prodotto' => $prodotto,
                 'novita_products' => $novitaProducts,
-                'has_prodotto' => !empty($prodotto),
+                'has_prodotto' => $prodotto['quantita']>0,
                 'categoria' => $categoria
             ];
         } else {
             return [
                 'prodotto' => $prodotto,
                 'novita_products' => $novitaProducts,
-                'has_prodotto' => !empty($prodotto),
+                'has_prodotto' => $prodotto['quantita']>0,
                 'categoria' => $categoria
             ];
         }

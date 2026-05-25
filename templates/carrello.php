@@ -112,8 +112,25 @@ $this->layout('layout', ['title' => $site_name])
 
                     <!-- Checkout Button -->
                     <?php if (!empty($cart_items)): ?>
-                        <a href="index.php?action=cart&cart_action=checkout"
-                            class="btn btn-dark w-100 py-2 fw-bold text-uppercase">
+
+                        <div class="container mb-4">
+                            <div class="row g-2 justify-content-center">
+                                <?php /** @var array $metodi_pagamento */
+                                 foreach ($metodi_pagamento as $metodo): ?>
+                                    <div class="col-md-4 d-flex"> <button type="button"
+                                            class="btn btn-outline-primary btn-sm w-100 h-100 d-flex align-items-center justify-content-center js-metodo-btn"
+                                            data-metodo="<?= $metodo['ID'] ?>">
+                                            <div class="p-1"><?= $metodo['nome_metodo'] ?></div>
+                                        </button>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+
+                        <input type="hidden" id="metodo_selezionato" value="">
+
+                        <a href="index.php?action=cart&cart_action=checkout" id="btn-procedi"
+                            class="btn btn-dark w-100 py-2 fw-bold text-uppercase disabled">
                             Procedi all'acquisto <i class="bi bi-arrow-right ms-1"></i>
                         </a>
                     <?php else: ?>
@@ -133,4 +150,39 @@ $this->layout('layout', ['title' => $site_name])
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const bottoniMetodo = document.querySelectorAll('.js-metodo-btn');
+        const inputNascosto = document.getElementById('metodo_selezionato');
+        const btnProcedi = document.getElementById('btn-procedi');
+
+        // Salviamo il link di base (es. index.php?action=cart&cart_action=checkout)
+        const urlBase = btnProcedi.getAttribute('href');
+
+        bottoniMetodo.forEach(bottone => {
+            bottone.addEventListener('click', function () {
+                // 1. Rimuovi lo stile "attivo" da tutti i bottoni e rimetti l'outline
+                bottoniMetodo.forEach(b => {
+                    b.classList.remove('btn-primary');
+                    b.classList.add('btn-outline-primary');
+                });
+
+                // 2. Attiva visivamente solo il bottone cliccato
+                this.classList.remove('btn-outline-primary');
+                this.classList.add('btn-primary');
+
+                // 3. Salva il valore nel campo nascosto
+                const metodoScelto = this.getAttribute('data-metodo');
+                inputNascosto.value = metodoScelto;
+
+
+
+                // 5. Abilita il pulsante di acquisto visto che ora la scelta è stata fatta
+                btnProcedi.classList.remove('disabled');
+                btnProcedi.href = 'index.php?action=cart&cart_action=checkout&metodo_pagamento=' + inputNascosto.value;
+            });
+        });
+    });
+
+</script>
 <?php $this->stop() ?>

@@ -26,6 +26,17 @@ class CartDB
         return null;
     }
 
+    public function getMetodiPagamento(): ?array{
+        $sql = "SELECT m.* FROM metodi_pagamento m";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+                $result = $stmt->get_result();
+        if ($result && $result->num_rows > 0) {
+            return $result->fetch_all(MYSQLI_ASSOC);
+        }
+        return null;
+    }
+
     //Funzione per creare un ordine
     public function creaOrdine($utente_id, $metodo_pagamento, $indirizzo_id): int|false
     {

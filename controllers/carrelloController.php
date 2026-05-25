@@ -88,6 +88,7 @@ class CarelloController
         }
         //fix
         $cart_items = $this->db->getCartItems($_SESSION['user_id']);
+        $metodi_pagamento = $this->db->getMetodiPagamento();
         $total = 0;
 
         foreach ($cart_items as $item) {
@@ -97,6 +98,7 @@ class CarelloController
         $data = [
             'title' => 'Carrello - Manga Xeno',
             'cart_items' => $cart_items,
+            'metodi_pagamento' => $metodi_pagamento,
             'total' => $total
         ];
 

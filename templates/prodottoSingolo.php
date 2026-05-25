@@ -115,6 +115,9 @@ $this->layout('layout', ['title' => $site_name])
                     </div>
                 </div>
                 <?php if (isset($_SESSION['user_id'])): ?>
+
+                    <?php /** @var bool $has_prodotto */
+                         if($has_prodotto): ?>
                     <div class="d-flex">
                         <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1"
                             style="max-width: 3rem" />
@@ -123,6 +126,16 @@ $this->layout('layout', ['title' => $site_name])
                             Add to cart
                         </button>
                     </div>
+                   <?php elseif(!$has_prodotto): ?>
+                    <div class="d-flex">
+                        <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1"
+                            style="max-width: 3rem" />
+                        <button class="btn btn-outline-dark flex-shrink-0" type="button" id="addToCart" disabled>
+                            <i class="bi-cart-fill me-1"></i>
+                            prodotto esaurito
+                        </button>
+                   </div>
+                   <?php endif ?>
                 <?php else: ?>
                     <a class="btn btn-outline-dark flex-shrink-0" href="index.php?action=showLogin">Accedi per
                         acquistare</a>
@@ -189,13 +202,19 @@ $this->layout('layout', ['title' => $site_name])
 
 <script>
     const bottone = document.getElementById('addToCart');
+
     const prodottoId = document.getElementById('productContainer').dataset.id;
     const categoria = document.getElementById('productContainer').dataset.categoria;
-    const datiDaInviare = new URLSearchParams();
-    datiDaInviare.append('product_id', prodottoId);
-    datiDaInviare.append('categoria', categoria);
+    const quantita = document.getElementById('inputQuantity');
+
 
     bottone.addEventListener('click', function () {
+        const numero = Number(quantita.value);
+        const datiDaInviare = new URLSearchParams();
+        datiDaInviare.append('product_id', prodottoId);
+        datiDaInviare.append('categoria', categoria);
+        datiDaInviare.append('quantity', numero);
+
         fetch('index.php?action=cart&cart_action=addToCart', {
             method: 'POST',
             headers: {
