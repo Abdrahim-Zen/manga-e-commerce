@@ -1,0 +1,54 @@
+.product-card img {
+    height: 350px;
+    /* QUESTA É LA REGOLA CHIAVE PER L'ALTEZZA DELL'IMMAGINE */
+    object-fit: cover;
+}
+
+.product-card .price {
+    font-size: 1.1rem;
+    color: #e63946;
+    font-weight: bold;
+}
+
+/* Definisce la larghezza fissa per ogni scheda prodotto */
+.product-scroll-item {
+    /* Imposta la larghezza massima di ogni elemento, ad esempio 25% */
+    /* Questo crea un layout 4x che scorre */
+    flex: 0 0 25%;
+    max-width: 25%;
+    padding-right: 1rem;
+    /* Aggiunge spazio tra gli elementi, come il g-4 di Bootstrap */
+    padding-left: 1rem;
+}
+
+/* Regola la larghezza per schermi più piccoli (mobile) */
+@media (max-width: 768px) {
+    .product-scroll-item {
+        /* Su mobile, mostra 2 schede alla volta */
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
+
+/* Regola la larghezza per schermi molto piccoli */
+@media (max-width: 576px) {
+    .product-scroll-item {
+        /* Su schermi stretti, mostra solo 1 scheda alla volta */
+        flex: 0 0 80%;
+        max-width: 80%;
+    }
+}
+
+/* Rimuove i controlli freccia di incremento/decremento da input[type="number"] */
+.form-control[type="number"] {
+    /* Per Firefox */
+    -moz-appearance: textfield;
+}
+
+/* Per Chrome, Edge e Safari */
+.form-control[type="number"]::-webkit-outer-spin-button,
+.form-control[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    /* Rimuove il margine che possono lasciare */
+}
