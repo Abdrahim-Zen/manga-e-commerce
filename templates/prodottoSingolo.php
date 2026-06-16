@@ -35,7 +35,7 @@
 
 
     .product-img-wrap {
-        background: var(--surface);
+
         border: 1px solid var(--border);
         border-radius: 10px;
         overflow: hidden;
@@ -45,11 +45,11 @@
 
     .product-img-wrap img {
         width: 100%;
-        max-height: 520px;
+        max-height: 720px;
         object-fit: contain;
         display: block;
         padding: 1.5rem;
-        background: var(--surface);
+
     }
 
     /* Info column */

@@ -87,7 +87,6 @@ if (isset($_SESSION['user_id'])) {
     /* Dropdown */
     .header-dropdown {
         background: var(--dark) !important;
-        border: none !important;
         border-radius: 6px !important;
         padding: 0.4rem 0 !important;
         min-width: 170px;
@@ -108,12 +107,9 @@ if (isset($_SESSION['user_id'])) {
 
     .header-dropdown .dropdown-item.danger {
         color: #ef4444;
+
     }
 
-    .header-dropdown .dropdown-item.danger:hover {
-        background: rgba(239, 68, 68, 0.08);
-        color: #ef4444;
-    }
 
     .header-dropdown hr {
         border-color: rgba(255, 255, 255, 0.07);
@@ -164,10 +160,10 @@ if (isset($_SESSION['user_id'])) {
 
                 <!-- Left links -->
                 <ul class="navbar-nav me-auto align-items-lg-center ms-3 gap-1">
-                    <li class="nav-item">
-                        <a class="nav-link-item" href="<?= $brand_url ?>">Home</a>
-                    </li>
+
                     <?php if (!$is_admin): ?>
+
+
                         <li class="nav-item dropdown">
                             <a class="nav-link-item dropdown-toggle" href="#"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
