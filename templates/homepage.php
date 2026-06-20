@@ -1,6 +1,7 @@
+<?php
 
-<?php /** @var string $title */
- $this->layout('layout', ['title' => $title]) ?>
+/** @var string $title */
+$this->layout('layout', ['title' => $title]) ?>
 
 <?php $this->start('extra_styles') ?>
 <style>
@@ -619,7 +620,7 @@
                 <i class="bi bi-arrow-up-right cat-card-arrow"></i>
             </a>
             <a href="index.php?category=figure&action=prodotti" class="cat-card">
-                <img src="img/figure/SV Era 5.jpg" alt="Figure" loading="lazy">
+                <img src="img/figure/luffy.jpg " alt="Figure" loading="lazy">
                 <div class="cat-card-overlay">
                     <h3 class="cat-card-title">Figure</h3>
                     <p class="cat-card-desc">Statuette da collezione, scale 1/7 e 1/4. Personaggi iconici.</p>
@@ -627,7 +628,7 @@
                 <i class="bi bi-arrow-up-right cat-card-arrow"></i>
             </a>
             <a href="index.php?category=carta&action=prodotti" class="cat-card">
-                <img src="img/steel.jpg" alt="Carte" loading="lazy">
+                <img src="img/carte/avatar.png" alt="Carte" loading="lazy">
                 <div class="cat-card-overlay">
                     <h3 class="cat-card-title">Carte</h3>
                     <p class="cat-card-desc">Trading card game e set rari. Edizioni limitate e varianti speciali.</p>
@@ -641,10 +642,10 @@
 <!-- PRODUCT SECTIONS -->
 <div id="products">
     <?php
-    $renderSection = function ($eyebrow, $title, $products, $cat) {
+    $renderSection = function ($eyebrow, $title, $products, $cat = null) {
         if (empty($products))
             return;
-        ?>
+    ?>
         <section class="prod-section reveal">
             <div class="container">
                 <div class="section-head-row">
@@ -652,9 +653,11 @@
                         <p class="section-eyebrow"><?= $eyebrow ?></p>
                         <h2 class="section-title-display"><?= $title ?></h2>
                     </div>
-                    <a href="index.php?category=<?= $cat ?>&action=prodotti" class="link-underline">
-                        Vedi tutti <i class="bi bi-arrow-right ms-1"></i>
-                    </a>
+                    <?php if ($cat !== null): ?>
+                        <a href="index.php?category=<?= $cat ?>&action=prodotti" class="link-underline">
+                            Vedi tutti <i class="bi bi-arrow-right ms-1"></i>
+                        </a>
+                    <?php endif; ?>
                 </div>
 
                 <div class="c-outer">
@@ -705,7 +708,8 @@
     <?php }; ?>
 
     <?php
-    $renderSection("Ultime Novità", "Manga in evidenza", $novita_products ?? [], "manga");
+    $renderSection("Ultime Novità", "Prodotti in evidenza", $novita_products ?? []);
+    $renderSection("Manga", "Manga in evidenza", $manga_products ?? [], "manga");
     $renderSection("Collezionismo", "Figure & Statuette", $figure_products ?? [], "figure");
     $renderSection("Trading Cards", "Carte Collezionabili", $cardgame_products ?? [], "carta");
     ?>
@@ -760,7 +764,7 @@
 
 <?php $this->start('page_scripts') ?>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
 
         // Carousel
         document.querySelectorAll('.c-outer').forEach(outer => {

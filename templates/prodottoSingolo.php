@@ -1,4 +1,8 @@
-<?php $this->layout('layout', ['title' => $title]) ?>
+<?php
+
+/** @var string $title */
+/** @var array $prodotto */
+$this->layout('layout', ['title' => $title]) ?>
 
 <?php $this->start('extra_styles') ?>
 <style>
@@ -219,7 +223,7 @@
         border: none;
         border-left: 1px solid var(--border2);
         border-right: 1px solid var(--border2);
-        color: var(--text);
+        color: var(--text-dim);
         text-align: center;
         width: 60px;
         height: 40px;
@@ -435,9 +439,25 @@
                 <!-- Description -->
                 <div class="desc-block">
                     <h5>Descrizione</h5>
-                    <p><?= isset($prodotto['descrizione']) && !empty($prodotto['descrizione'])
-                            ? $this->e($prodotto['descrizione'])
-                            : 'Scopri le avventure incredibili in questo volume. Una storia appassionante che ti terrà incollato alla pagina fino alla fine.' ?></p>
+                    <p>
+                        <?php
+                        if (isset($prodotto['descrizione']) && !empty($prodotto['descrizione'])) {
+                            echo $this->e($prodotto['descrizione']);
+                        } else {
+                            switch ($categoria) {
+                                case 'carta':
+                                    echo 'Potenzia il tuo mazzo o arricchisci il tuo album con queste carte collezionabili.';
+                                    break;
+                                case 'figure':
+                                    echo 'Arricchisci la tua collezione con questa figure straordinaria.ricca di dettagli fedeli all\'opera originale';
+                                    break;
+                                default:
+                                    echo 'Descrizione non disponibile.';
+                                    break;
+                            }
+                        }
+                        ?>
+                    </p>
                 </div>
 
                 <!-- Meta -->

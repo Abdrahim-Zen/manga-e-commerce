@@ -16,6 +16,7 @@ switch ($action) {
         $controller = new HomepageController();
         $controller->display();
         break;
+
     case 'showLogin':
     case 'handleLogin':
     case 'showRegister':
@@ -25,10 +26,18 @@ switch ($action) {
         $controller = new LoginController();
 
         if ($action === 'showLogin') {
+            if (isset($_SESSION['user_id'])) {
+                header('Location: index.php?action=home');
+                exit();
+            }
             $controller->showLogin();
         } elseif ($action === 'handleLogin') {
             $controller->handleLogin();
         } elseif ($action === 'showRegister') {
+            if (isset($_SESSION['user_id'])) {
+                header('Location: index.php?action=home');
+                exit();
+            }
             $controller->showRegister();
         } elseif ($action === 'handleRegister') {
             $controller->handleRegister();
@@ -38,17 +47,23 @@ switch ($action) {
         break;
 
     case 'prodotto':
+        if (isset($_SESSION['user_id']) && !$db->canUserAccess($_SESSION['user_id'], 'catalogo')) {
+            header('Location: index.php?action=home');
+            exit();
+        }
         $id = $_GET['id'] ?? null;
         $category = $_GET['category'] ?? null;
         if ($id) {
             require_once __DIR__ . '/../controllers/ProdottoSingoloController.php';
             $controller = new ProdottoSingoloController();
             $controller->display($id, $category);
-        } else {
-            header('Location: index.php?action=home');
         }
         break;
     case 'prodotti':
+        if (isset($_SESSION['user_id']) && !$db->canUserAccess($_SESSION['user_id'], 'catalogo')) {
+            header('Location: index.php?action=home');
+            exit();
+        }
         $category = $_GET['category'] ?? null;
         $sort = $_GET['sort'] ?? null;
         if ($category) {
@@ -56,14 +71,21 @@ switch ($action) {
             $controller = new ProdottiController();
 
             $controller->display($category, $sort);
-        } else {
-            header('Location: index.php?action=home');
         }
+        break;
+    case 'storico':
+        if (!isset($_SESSION['user_id']) || !$db->canUserAccess($_SESSION['user_id'], 'storico')) {
+            header('Location: index.php?action=home&error=access_denied');
+            exit();
+        }
+        require_once __DIR__ . '/../controllers/StoricoController.php';
+        $controller = new storicoController();
+        $controller->display($_SESSION['user_id']);
         break;
 
     case 'cart':
         if (!isset($_SESSION['user_id']) || !$db->canUserAccess($_SESSION['user_id'], 'cart')) {
-            header('Location: index.php?action=home');
+            header('Location: index.php?action=home&error=access_denied');
             exit();
         }
         require_once __DIR__ . '/../controllers/CarrelloController.php';

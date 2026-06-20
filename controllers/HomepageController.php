@@ -36,12 +36,14 @@ class HomepageController
             $novitaProducts = $this->db->getProductsByCategory(8);
             $cardGameProducts = $this->db->getCardHomepage(5);
             $figureProducts = $this->db->getFigureHomepage(5);
+            $mangaProducts = $this->db->getMangaHomepage(5);
 
             return [
                 'title' => 'Manga Xeno - Homepage',
                 'novita_products' => $novitaProducts,
                 'cardgame_products' => $cardGameProducts,
                 'figure_products' => $figureProducts,
+                'manga_products' => $mangaProducts,
                 'has_products' => !empty($novitaProducts) || !empty($cardGameProducts) || !empty($figureProducts)
             ];
         } catch (Exception $e) {

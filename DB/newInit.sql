@@ -7,15 +7,18 @@ INSERT INTO
 VALUES ('dashboard'),
     ('catalogo'),
     ('checkout'),
-    ('gestione_utenti');
+    ('gestione_utenti'),
+    ('storico'),
+    ('cart');
 
 INSERT INTO
     services_has_groups (services_username, groups_id)
 VALUES ('dashboard', 1),
     ('gestione_utenti', 1),
-    ('catalogo', 1),
     ('checkout', 1),
     ('catalogo', 2),
+    ('cart', 2),
+    ('storico', 2),
     ('checkout', 2);
 
 INSERT INTO

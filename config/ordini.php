@@ -74,4 +74,47 @@ class OrdiniDB
         $stmt->close();
         return $ordini;
     }
+
+    public function getStoricoByUserId($userId)
+    {
+        $sql = "SELECT  o.ID AS ordine_id,
+    o.data_ordine,
+    mp.nome_metodo AS metodo_pagamento,
+    -- Dettagli dell'indirizzo di consegna
+    CONCAT(ind.via, ' ', ind.civico, ', ', ind.citta) AS indirizzo_spedizione,
+    -- Dettagli del prodotto generico
+    p.ID AS prodotto_id,
+    p.codice AS codice_prodotto,
+    -- Identifica automaticamente il nome in base al tipo di prodotto
+    COALESCE(m.nome, f.nome_personaggio, c.brand_carta) AS nome_prodotto,
+    p.descrizione AS descrizione_prodotto,
+    -- Dettagli specifici dell'acquisto (storicizzati nell'ordine)
+    do.quantita,
+    do.prezzo_unitario_venduto,
+    (do.quantita * do.prezzo_unitario_venduto) AS totale_riga
+   FROM ordini o
+-- Collegamento ai dettagli dell'ordine e ai prodotti
+   JOIN dettagli_ordine do ON o.ID = do.ordine_id
+     JOIN prodotti p ON do.prodotto_id = p.ID
+-- Left Join sulle tabelle specifiche per estrarre il nome corretto
+LEFT JOIN manga m ON p.ID = m.id_manga
+LEFT JOIN figure f ON p.ID = f.id_figure
+LEFT JOIN carta c ON p.ID = c.id_carta
+-- Collegamento a tabelle di supporto dell'ordine
+JOIN metodi_pagamento mp ON o.metodo_pagamento_id = mp.ID
+JOIN indirizzo ind ON o.indirizzo_consegna = ind.indirizzo_id
+        WHERE o.utente_id = $userId
+        ORDER BY o.data_ordine DESC, o.ID DESC;";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $storico = [];
+        if ($result && $result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $storico[] = $row;
+            }
+        }
+        $stmt->close();
+        return $storico;
+    }
 }

@@ -186,6 +186,31 @@ LIMIT
         $stmt->close();
         return $products;
     }
+
+    public function getMangaHomepage($limit = 4)
+    {
+        $sql = "SELECT f.* , p.* , i.image, inv.quantita FROM manga f INNER JOIN prodotti p ON f.id_manga = p.ID INNER JOIN immagine_prodotti i ON p.ID = i.prodotto_id INNER JOIN inventario inv ON p.ID = inv.prodotto_id LIMIT ?";
+
+        $stmt = $this->conn->prepare($sql);
+
+        if (!$stmt) {
+            throw new Exception("Errore preparazione statement: " . $this->conn->error);
+        }
+
+        $stmt->bind_param("i", $limit);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $products = [];
+        if ($result && $result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $products[] = $row;
+            }
+        }
+
+        $stmt->close();
+        return $products;
+    }
     //metodo per ottenere carte in homepage
     public function getCardHomepage($limit = 4)
     {
@@ -354,6 +379,12 @@ LIMIT
             $stmt_inventario->execute();
             $stmt_inventario->close();
 
+            $sql_prodotto_categoria = "INSERT INTO prodotti_has_categorie (prodotto_id, categoria_id) VALUES (?, 1)";
+            $stmt_prodotto_categoria = $this->conn->prepare($sql_prodotto_categoria);
+            $stmt_prodotto_categoria->bind_param("i", $prodotto_id);
+            $stmt_prodotto_categoria->execute();
+            $stmt_prodotto_categoria->close();
+
 
 
             $sql_img = "INSERT INTO immagine_prodotti (prodotto_id, image) VALUES (?, ?)";
@@ -416,7 +447,11 @@ LIMIT
             $stmt_inventario->execute();
             $stmt_inventario->close();
 
-
+            $sql_prodotto_categoria = "INSERT INTO prodotti_has_categorie (prodotto_id, categoria_id) VALUES (?, 3)";
+            $stmt_prodotto_categoria = $this->conn->prepare($sql_prodotto_categoria);
+            $stmt_prodotto_categoria->bind_param("i", $prodotto_id);
+            $stmt_prodotto_categoria->execute();
+            $stmt_prodotto_categoria->close();
 
             $sql_img = "INSERT INTO immagine_prodotti (prodotto_id, image) VALUES (?, ?)";
             $stmt_img = $this->conn->prepare($sql_img);
@@ -480,6 +515,12 @@ LIMIT
             $stmt_inventario->bind_param("ii", $prodotto_id, $quantita);
             $stmt_inventario->execute();
             $stmt_inventario->close();
+
+            $sql_prodotto_categoria = "INSERT INTO prodotti_has_categorie (prodotto_id, categoria_id) VALUES (?, 2)";
+            $stmt_prodotto_categoria = $this->conn->prepare($sql_prodotto_categoria);
+            $stmt_prodotto_categoria->bind_param("i", $prodotto_id);
+            $stmt_prodotto_categoria->execute();
+            $stmt_prodotto_categoria->close();
 
 
 

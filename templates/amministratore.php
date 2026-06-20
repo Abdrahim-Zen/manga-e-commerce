@@ -607,6 +607,10 @@
 
             <div class="kpi-grid">
                 <?php
+                /** @var float $ricavomanga */
+                /** @var float $ricavofigure */
+                /** @var float $ricavocarte */
+
                 $kpis = [
                     ['label' => 'Ricavo Manga', 'val' => $ricavomanga, 'icon' => 'book', 'cls' => 'manga'],
                     ['label' => 'Ricavo Figure', 'val' => $ricavofigure, 'icon' => 'person-badge', 'cls' => 'figure'],

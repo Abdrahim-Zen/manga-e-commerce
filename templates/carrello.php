@@ -1,4 +1,8 @@
-<?php $this->layout('layout', ['title' => $title]) ?>
+<?php
+
+/** @var string $title */
+/** @var float $total */
+$this->layout('layout', ['title' => $title]) ?>
 
 <?php $this->start('extra_styles') ?>
 <style>
@@ -60,7 +64,7 @@
     .cart-item-name {
         font-size: 0.95rem;
         font-weight: 600;
-        color: var(--text);
+        color: var(--text-dim);
         margin-bottom: 0.25rem;
         white-space: nowrap;
         overflow: hidden;
@@ -106,7 +110,7 @@
         background: var(--surface2);
         border: 1px solid var(--border2);
         border-radius: 5px;
-        color: var(--text);
+        color: var(--text-dim);
         text-align: center;
         width: 60px;
         height: 36px;

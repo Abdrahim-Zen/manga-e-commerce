@@ -192,19 +192,7 @@ class DashboardController
                     $result = true;
                 }
 
-                // In ProdottiDB i controller usavano queste logiche obsolete che in realta' facevano insert gia' dentro ai metodi addX
-                // Preserviamo esattamente l'upload se necessario (anche se ProdottiDB usa il nome e basta)
-                // Nel codice originale c'era un upload in 'path/to/product_images/' che di fatto era finto
-                if ($result === true && $image_file && $image_file['error'] === UPLOAD_ERR_OK) {
-                    $upload_dir = 'path/to/product_images/';
-                    $extension = pathinfo($image_file['name'], PATHINFO_EXTENSION);
-                    $new_filename = $codice . '.' . strtolower($extension);
-                    $target_file = $upload_dir . $new_filename;
 
-                    if (@move_uploaded_file($image_file['tmp_name'], $target_file)) {
-                        // $image_db_success = $this->prodottiDb->insertProductImage(...); // Questa roba probabilmente non veniva mai chiamata perchè il getLastInsertId era inesistente o sbagliato ma la manteniamo sicura
-                    }
-                }
 
                 if ($result === true) {
                     $successCount++;

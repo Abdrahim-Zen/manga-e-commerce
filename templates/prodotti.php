@@ -1,13 +1,15 @@
-<?php /** @var string $title */
-      /** @var string $category_name */
- $this->layout('layout', ['title' => $title]) ?>
+<?php
+
+/** @var string $title */
+/** @var string $category_name */
+$this->layout('layout', ['title' => $title]) ?>
 
 <?php $this->start('extra_styles') ?>
 <style>
     .page-banner {
         background: var(--dark);
         border-bottom: 1px solid var(--border);
-        padding: 3.5rem 0 2.5rem;
+        padding: 3.5rem 0 1.0rem;
     }
 
     .page-banner .category-tag {
@@ -212,17 +214,7 @@
 <?php $this->stop() ?>
 
 <?php $this->start('main_content') ?>
-<!-- Page banner -->
-<div class="page-banner">
-    <div class="container" style="text-align: center;">
-        <span class="category-tag">Catalogo</span>
-        <h1><?= $this->e($title ?? 'Prodotti') ?></h1>
-        <p style="color: var(--text-dim); font-size: 0.95rem; margin-top: 0.75rem; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.7;">
-            Scopri il nostro vasto catalogo di <?= $this->e($title ?? 'prodotti') ?>.
-            Trova quello che cerchi tra centinaia di titoli disponibili.
-        </p>
-    </div>
-</div>
+
 
 <!-- Sort bar -->
 <div style="background:var(--surface); border-bottom:1px solid var(--border); padding:0.85rem 0;">
@@ -255,6 +247,18 @@
         </div>
     </div>
 </div>
+<!-- Page banner -->
+<div class="page-banner">
+    <div class="container" style="text-align: center;">
+        <span class="category-tag">Catalogo</span>
+        <h1><?= $this->e($title ?? 'Prodotti') ?></h1>
+        <p style="color: var(--text); font-size: 0.95rem; margin-top: 0.75rem; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.7;">
+            Scopri il nostro vasto catalogo di <?= $this->e($title ?? 'prodotti') ?>.
+            Trova quello che cerchi tra centinaia di titoli disponibili.
+        </p>
+    </div>
+</div>
+
 
 <!-- Grid -->
 <section class="products-grid-section">

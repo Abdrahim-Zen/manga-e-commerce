@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../../config/user.php';
 require_once __DIR__ . '/../../config/cart.php';
-
+/** @var array  $user */
 if (isset($_SESSION['user_id'])) {
     $auth = new UserDB();
     //$is_admin = (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin');
@@ -19,10 +19,21 @@ if (isset($_SESSION['user_id'])) {
         background: var(--dark);
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
-        border-bottom: 1px solid var(--border);
+        border-bottom: none;
         position: sticky;
         top: 0;
         z-index: 1000;
+    }
+
+    .site-header::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background-color: #000000;
+        backdrop-filter: none;
     }
 
     .navbar-brand-logo {
@@ -202,6 +213,7 @@ if (isset($_SESSION['user_id'])) {
                             <a class="nav-link-item dropdown-toggle" href="#"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-shield-check me-1" style="color:var(--accent);"></i>
+
                                 <?= $this->e($user['name']) ?>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end header-dropdown">
@@ -242,6 +254,15 @@ if (isset($_SESSION['user_id'])) {
                                         <i class="bi bi-bag header-dropdown-icon"></i>Carrello
                                     </a>
                                 </li>
+                                <li>
+                                    <hr>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="index.php?action=storico">
+                                        <i class="bi bi-bag header-dropdown-icon"></i>Storico Ordini
+                                    </a>
+                                </li>
+
                                 <li>
                                     <hr>
                                 </li>

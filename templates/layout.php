@@ -262,17 +262,6 @@
         $user = ['id' => $_SESSION['user_id'], 'name' => $_SESSION['user_name'] ?? 'Utente', 'email' => $_SESSION['user_email'] ?? ''];
         $role = $_SESSION['user_role'] ?? null;
     }
-
-
-    /*
-    $admin = null;
-    if (isset($_SESSION['user_id'])) {
-        $user = ['id' => $_SESSION['user_id'], 'name' => $_SESSION['user_name'] ?? 'Utente', 'email' => $_SESSION['user_email'] ?? ''];
-    }
-    if (isset($_SESSION['admin_id'])) {
-        $admin = ['id' => $_SESSION['admin_id'], 'name' => $_SESSION['admin_name'] ?? 'Amministratore', 'email' => $_SESSION['admin_email'] ?? ''];
-    }
-        */
     ?>
 
     <!-- ─── HEADER ─── -->
