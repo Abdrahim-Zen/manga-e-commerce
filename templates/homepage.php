@@ -1,7 +1,8 @@
 <?php
+
 /** @var string $site_name */
 $this->layout('layout', ['title' => $site_name])
-    ?>
+?>
 <?php $this->start('extra_styles') ?>
 <style>
     .pcard {
@@ -53,8 +54,8 @@ $this->layout('layout', ['title' => $site_name])
 <header class="bg-dark py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder">Shop in style</h1>
-            <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
+            <h1 class="display-4 fw-bolder">MangaXeno</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Action figure, manga e carte collezionabili dei tuoi anime preferiti</p>
         </div>
     </div>
 </header>
@@ -66,7 +67,7 @@ $renderFunction = function ($eyebrow, $title, $products, $cat) {
     if (empty($products)) {
         return;
     }
-    ?>
+?>
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
             <div class="d-flex justify-content-between align-items-center mb-4">
@@ -107,7 +108,7 @@ $renderFunction = function ($eyebrow, $title, $products, $cat) {
             </div>
         </div>
     </section>
-    <?php
+<?php
 }; ?>
 
 <?php $renderFunction("Ultime Novità", "Manga in evidenza", $novita_products ?? [], "manga"); ?>
